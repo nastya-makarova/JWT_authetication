@@ -1,6 +1,6 @@
 # Develop a RESTful API for Authentication
 
-## Описание проекта
+## Project Description
 Develop a REST API for a user authentication and authorization system using Django and Django REST Framework. The system should support user registration, authentication, token refresh, logout, and allow users to retrieve and update their personal information.
 
 Authentication should utilize Access and Refresh tokens.
@@ -10,34 +10,34 @@ Access Token – A JSON Web Token with a default lifespan of 30 seconds.
 
 Clients may request an Access Token refresh at any time, for instance, upon Access Token expiry by providing a valid Refresh Token. In this case, the service returns a new valid pair of Access and Refresh Tokens, resetting their lifespans.
 
-## Установка
+## Installation
 
-### Клонировать репозиторий и перейти в него в командной строке:
+### Clone the repository and change the directory:
 
 ```git@github.com:nastya-makarova/JWT_authetication.git```
 
 ```cd auth_project```
 
-### Cоздать и активировать виртуальное окружение:
+### Create and activate the virtual environment::
 
 ```python3 -m venv env```
 
 ```source env/bin/activate```
 
-### Установить зависимости из файла requirements.txt:
+### Install dependencies from the requirements.txt:
 
 ```pip install -r requirements.txt```
 
-### Выполнить миграции:
+### Make the migrations:
 
 ```python manage.py migrate```
 
-### Запустить проект:
+### Run the project:
 
 ```python manage.py runserver```
 
 
-### Документация для API Yatube доступна:
+### The API documentation is available:
 
 ```http://127.0.0.1:8000/redoc/```
 
