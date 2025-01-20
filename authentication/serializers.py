@@ -105,7 +105,7 @@ class RefreshTokenSerializer(serializers.ModelSerializer):
     class Meta:
         model = RefreshTokenModel
         fields = (
-            "refresh_token"
+            "refresh_token",
         )
 
     def validate(self, data):
@@ -148,5 +148,5 @@ class UserMeSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "username",
-            "email"
+            "email",
         )

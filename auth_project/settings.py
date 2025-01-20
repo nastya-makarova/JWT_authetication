@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "authentication.apps.AuthenticationConfig",
     "constance",
-    "rest_framework"
+    "rest_framework",
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [

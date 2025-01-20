@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -11,7 +13,6 @@ from .serializers import (
     LoginSerializer,
     RefreshTokenSerializer,
     RegisterSerializer,
-    UserSerializer,
     UserMeSerializer
 )
 from .service import generate_access_token, generate_refersh_token
@@ -23,6 +24,7 @@ class RegisterView(APIView):
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer
 
+    @swagger_auto_schema(request_body=RegisterSerializer)
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
@@ -35,6 +37,7 @@ class LoginView(APIView):
     permission_classes = (AllowAny,)
     serializer_class = LoginSerializer
 
+    @swagger_auto_schema(request_body=LoginSerializer)
     def post(self, request):
         email = request.data.get("email")
         user = User.objects.filter(email=email).first()
@@ -62,7 +65,9 @@ class LoginView(APIView):
 
 class RefreshTokenView(APIView):
     serializer_class = RefreshTokenSerializer
+    permission_classes = (AllowAny,)
 
+    @swagger_auto_schema(request_body=RefreshTokenSerializer)
     def post(self, request):
         refresh_token = request.data.get('refresh_token')
 
@@ -83,7 +88,9 @@ class RefreshTokenView(APIView):
 
 class LogoutView(APIView):
     serializer_class = RefreshTokenSerializer
+    permission_classes = (IsAuthenticated,)
 
+    @swagger_auto_schema(request_body=RefreshTokenSerializer)
     def post(self, request):
         refresh_token = request.data.get('refresh_token')
         try:
@@ -99,11 +106,22 @@ class LogoutView(APIView):
 class GetMeView(APIView):
     permission_classes = (IsAuthenticated,)
 
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter('id', openapi.IN_QUERY, description="Name of the user", type=openapi.TYPE_INTEGER),
+            openapi.Parameter('username', openapi.IN_QUERY, type=openapi.TYPE_STRING),
+            openapi.Parameter('email', openapi.IN_QUERY, type=openapi.TYPE_STRING)
+        ],
+        responses={
+            200: UserMeSerializer
+        }
+    )
     def get(self, request):
         user = request.user
         serializer = UserMeSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @swagger_auto_schema(request_body=UserMeSerializer)
     def put(self, request):
         user = request.user
         serializer = UserMeSerializer(user, data=request.data)
