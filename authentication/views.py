@@ -13,6 +13,7 @@ from .serializers import (
     LoginSerializer,
     RefreshTokenSerializer,
     RegisterSerializer,
+    UserSerializer,
     UserMeSerializer
 )
 from .service import generate_access_token, generate_refersh_token
@@ -24,7 +25,12 @@ class RegisterView(APIView):
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer
 
-    @swagger_auto_schema(request_body=RegisterSerializer)
+    @swagger_auto_schema(
+        request_body=RegisterSerializer,
+        responses={
+            200: UserSerializer
+        }
+    )
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
@@ -108,9 +114,21 @@ class GetMeView(APIView):
 
     @swagger_auto_schema(
         manual_parameters=[
-            openapi.Parameter('id', openapi.IN_QUERY, description="Name of the user", type=openapi.TYPE_INTEGER),
-            openapi.Parameter('username', openapi.IN_QUERY, type=openapi.TYPE_STRING),
-            openapi.Parameter('email', openapi.IN_QUERY, type=openapi.TYPE_STRING)
+            openapi.Parameter(
+                'id', openapi.IN_QUERY,
+                description="Name of the user",
+                type=openapi.TYPE_INTEGER
+            ),
+            openapi.Parameter(
+                'username',
+                openapi.IN_QUERY, 
+                type=openapi.TYPE_STRING
+            ),
+            openapi.Parameter(
+                'email',
+                openapi.IN_QUERY,
+                type=openapi.TYPE_STRING
+            )
         ],
         responses={
             200: UserMeSerializer
