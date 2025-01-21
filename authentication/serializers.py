@@ -25,7 +25,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
         required=True, max_length=254
     )
-    password = serializers.CharField(       
+    password = serializers.CharField(
         max_length=128,
         min_length=8,
         write_only=True
@@ -59,7 +59,7 @@ class LoginSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
         required=True, max_length=254
     )
-    password = serializers.CharField(       
+    password = serializers.CharField(
         max_length=128,
         min_length=8,
         write_only=True

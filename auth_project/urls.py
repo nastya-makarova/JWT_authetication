@@ -27,16 +27,16 @@ urlpatterns = [
 ]
 
 schema_view = get_schema_view(
-   openapi.Info(
-      title="Auth API",
-      default_version='v1',
-      terms_of_service="https://www.google.com/policies/terms/",
-      description="Документация для пректа аутентификации JWT.",
-      contact=openapi.Contact(email="nastya@example.com"),
-      license=openapi.License(name="BSD License"),
-   ),
-   public=True,
-   permission_classes=(permissions.AllowAny,),
+    openapi.Info(
+        title="Auth API",
+        default_version='v1',
+        terms_of_service="https://www.google.com/policies/terms/",
+        description="Документация для пректа аутентификации JWT.",
+        contact=openapi.Contact(email="nastya@example.com"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
 )
 
 urlpatterns += [

@@ -1,14 +1,11 @@
-import jwt
 import uuid
-from datetime import datetime, timedelta, timezone
+from datetime import timezone
 
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import (
     BaseUserManager,
     AbstractBaseUser,
     PermissionsMixin
 )
-from django.conf import settings
 from django.db import models
 
 

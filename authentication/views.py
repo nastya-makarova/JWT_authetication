@@ -121,7 +121,7 @@ class GetMeView(APIView):
             ),
             openapi.Parameter(
                 'username',
-                openapi.IN_QUERY, 
+                openapi.IN_QUERY,
                 type=openapi.TYPE_STRING
             ),
             openapi.Parameter(
